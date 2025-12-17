@@ -379,13 +379,9 @@ if (httpError) {
 const msg = getHTTPErrorMessageFromCode("BAD_REQUEST", "Fallback message")
 ```
 
----
-
 ## Publishing Guide
 
 See [docs/PUBLISHING.md](docs/PUBLISHING.md) for instructions on how to publish this package to npm.
-
----
 
 ## License
 

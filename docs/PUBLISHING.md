@@ -11,15 +11,12 @@ npm run publish      # publish (handles auth automatically)
 npm version patch && git push --tags
 ```
 
----
-
 ## Prerequisites
 
 Update version in `package.json` following [semantic versioning](https://semver.org/).
 
 > The publish script automatically runs build, lint, and test. You only need to run these manually for debugging.
 
----
 
 ## Local Publishing
 
@@ -68,7 +65,6 @@ Replace `123456` with the 6-digit code from your authenticator app.
 > [!NOTE]
 > If you don't have 2FA enabled yet, run `npm profile enable-2fa auth-and-writes` to set it up.
 
----
 
 ## CI/CD Publishing
 
@@ -92,7 +88,6 @@ git push origin main --tags
 
 [View workflow runs →](https://github.com/dunika/result-try/actions)
 
----
 
 ## Troubleshooting
 
@@ -131,7 +126,6 @@ npm run test
 - Update version in `package.json`
 - Check published versions: [npmjs.com/package/result-try](https://www.npmjs.com/package/result-try)
 
----
 
 ## Scripts Reference
 
