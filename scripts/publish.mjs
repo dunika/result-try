@@ -82,9 +82,13 @@ if (!isDryRun) {
   
   if (IS_CI) {
     publishArgs.push('--provenance')
-  }
-  
-  if (otp) {
+  } else {
+    if (!otp) {
+      echo(chalk.red('\n✗ OTP is required for local publishing\n'))
+      echo(chalk.yellow('Please provide an OTP code from your authenticator or recovery codes:\n'))
+      echo(chalk.cyan('  npm run publish -- --otp=YOUR_CODE\n'))
+      process.exit(1)
+    }
     publishArgs.push('--otp', otp)
   }
   

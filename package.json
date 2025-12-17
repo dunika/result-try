@@ -1,6 +1,6 @@
 {
   "name": "result-try",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A TypeScript Result type and try-catch wrapper utility",
   "license": "MIT",
   "author": "Donncha Breen",
