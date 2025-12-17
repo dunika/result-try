@@ -133,47 +133,48 @@ describe("README Examples", () => {
 
     describe("Decorators", () => {
       it("should match 'UserService' example", async () => {
-        const dbMock = { find: vi.fn() }
+        const dbMock = { find: vi.fn(), update: vi.fn() }
 
         class UserService {
           // Use default mapping (error -> ResultError.from(error))
           @TryResult()
           async getUser(id: string) {
-            if (id === "error") throw new Error("Boom")
-            return { id, name: "Alice" }
-          }
-
-          // Use custom mapping
-          @TryResult((error) => NotFoundError.from(error))
-          async findUser(id: string) {
             const user = await dbMock.find(id)
             if (!user) {
               return NotFoundError.from("User not found")
             }
-            return user
+            return Result.ok(user)
+          }
+
+          // Use custom mapping
+          @TryResult((error) => NotFoundError.from(error))
+          async updateUser(id: string, data: Partial<{ id: string; name: string }>) {
+            const user = await dbMock.update(id, data)
+            return Result.ok(user)
           }
         }
 
         const service = new UserService()
 
         // Test getUser success
-        // Test getUser success
+        dbMock.find.mockResolvedValue({ id: "1", name: "Alice" })
         const res1 = (await service.getUser("1")) as unknown as Result<
           { id: string; name: string },
           ResultError
         >
         expect(res1.ok).toBe(true)
 
-        // Test getUser fail
-        const res2 = (await service.getUser("error")) as unknown as Result<
+        // Test getUser fail - user not found
+        dbMock.find.mockResolvedValue(null)
+        const res2 = (await service.getUser("999")) as unknown as Result<
           { id: string; name: string },
           ResultError
         >
         expect(res2.ok).toBe(false)
 
-        // Test findUser - not found
-        dbMock.find.mockResolvedValue(null)
-        const res3 = (await service.findUser("999")) as unknown as Result<
+        // Test updateUser - database error
+        dbMock.update.mockRejectedValue(new Error("Database constraint violation"))
+        const res3 = (await service.updateUser("999", { name: "Updated" })) as unknown as Result<
           { id: string; name: string },
           ResultError
         >

@@ -163,17 +163,18 @@ class UserService {
   // Use default mapping (error -> ResultError.from(error))
   @TryResult()
   async getUser(id: string) {
-    // ...
+    const user = await db.find(id)
+    if (!user) {
+      return NotFoundError.from("User not found") 
+    }
+    return Result.ok(user)
   }
 
   // Use custom mapping
-  @TryResult((error) => NotFoundError.from(error))
-  async findUser(id: string) {
-     const user = await db.find(id);
-     if (!user) {
-        return NotFoundError.from("User not found");
-     }
-     return user;
+  @TryResult((error) => mapPostgresError(error))
+  async updateUser(id: string, data: Partial<User>): PromiseResult<User> {
+     const user = await db.update(id, data)
+     return Result.ok(user)
   }
 }
 
