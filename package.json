@@ -1,0 +1,82 @@
+{
+  "name": "try-result",
+  "version": "0.0.1",
+  "description": "A TypeScript Result type and try-catch wrapper utility",
+  "license": "MIT",
+  "author": "Donncha Breen",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dunika/try-result.git"
+  },
+  "homepage": "https://github.com/beyond-bmi/beyond-bmi/tree/main/packages/try-result#readme",
+  "bugs": {
+    "url": "https://github.com/beyond-bmi/beyond-bmi/issues"
+  },
+  "keywords": [
+    "result",
+    "try-catch",
+    "monad",
+    "error-handling",
+    "typescript"
+  ],
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "format": "biome check --write .",
+    "format:check": "biome check .",
+    "publish": "node scripts/publish.mjs",
+    "publish:dry": "node scripts/publish.mjs --dry-run"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.0.5",
+    "@eslint/js": "^9.39.2",
+    "@types/node": "^25.0.3",
+    "eslint": "^9.39.2",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-vitest": "0.5.4",
+    "tsdown": "^0.18.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "^8.50.0",
+    "vite-tsconfig-paths": "^6.0.2",
+    "vitest": "^4.0.16",
+    "zx": "^8.8.5"
+  }
+}
