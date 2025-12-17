@@ -1,5 +1,5 @@
 {
-  "name": "try-result",
+  "name": "result-try",
   "version": "0.0.1",
   "description": "A TypeScript Result type and try-catch wrapper utility",
   "license": "MIT",
@@ -26,11 +26,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dunika/try-result.git"
+    "url": "git+https://github.com/dunika/result-try.git"
   },
-  "homepage": "https://github.com/beyond-bmi/beyond-bmi/tree/main/packages/try-result#readme",
+  "homepage": "https://github.com/dunika/result-try#readme",
   "bugs": {
-    "url": "https://github.com/beyond-bmi/beyond-bmi/issues"
+    "url": "https://github.com/dunika/result-try/issues"
   },
   "keywords": [
     "result",

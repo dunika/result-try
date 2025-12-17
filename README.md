@@ -1,29 +1,29 @@
-# try-result
+# result-try
 
-![npm version](https://img.shields.io/npm/v/try-result?style=flat-square&color=2563eb)
+![npm version](https://img.shields.io/npm/v/result-try?style=flat-square&color=2563eb)
 ![zero dependencies](https://img.shields.io/badge/dependencies-0-success?style=flat-square)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/try-result?style=flat-square&color=2563eb)
-![license](https://img.shields.io/npm/l/try-result?style=flat-square&color=2563eb)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/result-try?style=flat-square&color=2563eb)
+![license](https://img.shields.io/npm/l/result-try?style=flat-square&color=2563eb)
 
 > **Make Failure Predictable**
 >
-> `try-result` converts implicit exceptions into explicit, strongly-typed values.
+> `result-try` converts implicit exceptions into explicit, strongly-typed values.
 
 ## Quick Start
 
 
 ```bash
-npm install try-result
+npm install result-try
 # or
-yarn add try-result
+yarn add result-try
 # or
-pnpm add try-result
+pnpm add result-try
 # or
-bun add try-result
+bun add result-try
 ```
 
 ```typescript
-import { tryResult, ResultError } from "try-result"
+import { tryResult, ResultError } from "result-try"
 
 // BEFORE: Implicit, unchecked, unsafe
 async function unsafeGet() {
@@ -76,7 +76,7 @@ And your app crashes in production.
 
 ## The Solution
 
-`try-result` forces you to handle exceptions as data, ensuring no error is ever left unhandled.
+`result-try` forces you to handle exceptions as data, ensuring no error is ever left unhandled.
 
 1.  **Wraps** unstable code (Promises, async functions, sync blocks) safely.
 2.  **Catches** every exception and converts it into a `Result` object.
@@ -116,7 +116,7 @@ You stay on the "Success Track" until an error switches you to the "Failure Trac
 Use `tryResult` for Promises and async functions.
 
 ```typescript
-import { tryResult, NotFoundError } from "try-result"
+import { tryResult, NotFoundError } from "result-try"
 
 const result = await tryResult(fetch("https://api.example.com/data"))
 
@@ -147,7 +147,7 @@ console.log(data)
 Use `tryResultSync` for synchronous operations like JSON parsing.
 
 ```typescript
-import { tryResultSync, BadRequestError } from "try-result"
+import { tryResultSync, BadRequestError } from "result-try"
 
 const parseResult = tryResultSync(() => JSON.parse(userInput))
 
@@ -168,7 +168,7 @@ Decorate your class methods to automatically catch errors and return `Result` ty
 > [!] Requires `"experimentalDecorators": true` in your `tsconfig.json`.
 
 ```typescript
-import { TryResult, Result, NotFoundError } from "try-result"
+import { TryResult, Result, NotFoundError } from "result-try"
 
 class UserService {
   // Use default mapping (error -> ResultError.from(error))
@@ -224,7 +224,7 @@ type Result<T, E extends ResultError> =
 - **`Result.void()`**: Useful for functions that verify something but return no data.
 
   ```typescript
-  import { Result, ResultError, ForbiddenError } from "try-result"
+  import { Result, ResultError, ForbiddenError } from "result-try"
 
   function validateUser(user: User): Result<void, ResultError> {
     if (!user.isActive) {
@@ -245,7 +245,7 @@ Returns the value if `ok`, otherwise throws the error.
 
 ### ResultError & Built-in Errors
 
-`try-result` treats errors as structured data.
+`result-try` treats errors as structured data.
 The `ResultError` class ensures every error has a `code`, `status`, and `message`.
 
 We provide standard HTTP-friendly error classes out of the box:
@@ -283,7 +283,7 @@ All built-in error classes provide two static factory methods for convenient err
 **`from()`** - Creates an error instance from a message or existing error:
 
 ```typescript
-import { ResultError, NotFoundError } from "try-result"
+import { ResultError, NotFoundError } from "result-try"
 
 // From a string message
 const error1 = ResultError.from("User not found")
@@ -299,7 +299,7 @@ try {
 **`result()`** - Creates an error `Result` directly (shorthand for `Result.error(ErrorClass.from(...))`):
 
 ```typescript
-import { NotFoundError } from "try-result"
+import { NotFoundError } from "result-try"
 
 // Concise
 return NotFoundError.result("User not found")
@@ -319,10 +319,10 @@ A robust stringification utility designed for logging and debugging.
 - **Classes:** Preserves constructor names for custom classes.
 - **Errors:** Fully serializes Error chains and causes.
 
-`try-result` uses `inspect` internally within `ResultError` and all HTTP error types to ensure that any error caught—whether it's an object, string, or class—is preserved safely.
+`result-try` uses `inspect` internally within `ResultError` and all HTTP error types to ensure that any error caught—whether it's an object, string, or class—is preserved safely.
 
 ```typescript
-import { inspect } from "try-result"
+import { inspect } from "result-try"
 
 // 1. Circular References (No crash)
 const circular: any = { self: null }
@@ -361,7 +361,7 @@ import {
   isResultErrorStatus,
   findHTTPErrorFromCode,
   getHTTPErrorMessageFromCode 
-} from "try-result"
+} from "result-try"
 
 // Type Guard
 if (isResultError(someValue)) {
