@@ -303,6 +303,8 @@ return Result.error(NotFoundError.from("User not found"))
 
 A robust stringification utility designed for logging and debugging.
 
+All built-in error classes use `inspect` internally to ensure that any error caught is preserved safely.
+
 **Why use `inspect`?**
 
 - **Never crashes:** Safe for circular references and deep nesting.
@@ -310,7 +312,7 @@ A robust stringification utility designed for logging and debugging.
 - **Classes:** Preserves constructor names for custom classes.
 - **Errors:** Fully serializes Error chains and causes.
 
-`result-try` uses `inspect` internally within `ResultError` and all HTTP error types to ensure that any error caught—whether it's an object, string, or class—is preserved safely.
+
 
 ```typescript
 import { inspect } from "result-try"
@@ -338,8 +340,6 @@ class User {
 console.log(inspect(new User(1)))
 // Output: [User]:{"id":1}
 ```
-
----
 
 ### Error Helpers
 
